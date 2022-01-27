@@ -16,16 +16,16 @@ function SignUp() {
     }
     const submit = () => { }
     return <VStack spacing="3px">
-        <FormControl>
+        <FormControl isRequired>
             <FormLabel textAlign='center' >Name<Input variant='filled' bg='snow' size="lg" placeholder='Enter Your Email' onChange={(event) => setName(event.target.value)} /></FormLabel>
         </FormControl>
 
-        <FormControl>
-            <FormLabel textAlign='center'>Email address   <Input variant='filled' bg='snow' size="lg" placeholder='Enter Your Email' onChange={(event) => setEmail(event.target.value)} />
+        <FormControl isRequired>
+            <FormLabel textAlign='center'>Email Address   <Input variant='filled' bg='snow' size="lg" placeholder='Enter Your Email' onChange={(event) => setEmail(event.target.value)} />
             </FormLabel>
         </FormControl>
 
-        <FormControl>
+        <FormControl isRequired>
             <FormLabel textAlign='center'>Password<InputGroup><Input variant='filled' bg='snow' size="lg"
                 type={show ? "text" : "password"}
                 placeholder='Enter Your Password' onChange={(event) => setEmail(event.target.value)} />
@@ -38,7 +38,7 @@ function SignUp() {
 
         </FormControl>
 
-        <FormControl>
+        <FormControl isRequired>
             <FormLabel textAlign='center'>Confirm Password<InputGroup>
                 <Input type={show ? "text" : "password"} variant='filled' bg='snow' size="lg" placeholder='Confirm Password' onChange={(event) => setConfirmPassword(event.target.value)} />
                 <InputRightElement width='4.5rem'>
@@ -60,8 +60,7 @@ function SignUp() {
             height='48px'
             width='480px'
             border='2px'
-            borderColor='green.500'
-            bgColor='steelblue'
+            colorScheme="blue"
             onClick={submit}
         >
             Sign Up
