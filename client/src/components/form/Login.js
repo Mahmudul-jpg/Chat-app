@@ -72,6 +72,7 @@ function Login() {
                     value={email}
                     type="email"
                     placeholder="Enter Your Email Address"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
             </FormControl>
@@ -85,6 +86,8 @@ function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                         type={show ? "text" : "password"}
                         placeholder="Enter password"
+                    value={password}
+
                     />
                     <InputRightElement width="4.5rem">
                         <Button h="1.75rem" size="sm" onClick={handleClick}>
