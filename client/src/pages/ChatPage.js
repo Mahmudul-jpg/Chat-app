@@ -1,7 +1,15 @@
 import React from 'react';
+import SideBar from '../components/user components/SideBar';
+import { ChatState } from '../context/ChatProvider';
 
 function ChatPage() {
-    return (<div>Chat Page</div>);
+    const { user } = ChatState()
+
+    return (<div>
+        {user && <SideBar />}
+
+
+    </div>);
 };
 
 export default ChatPage;

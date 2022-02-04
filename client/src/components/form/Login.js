@@ -15,7 +15,7 @@ function Login() {
     const [loading, setLoading] = useState(false)
     const toast = useToast()
     const navigate = useNavigate();
-    
+
     const submit = async () => {
         setLoading(true)
         if (!email || !password) {
@@ -33,11 +33,11 @@ function Login() {
             const config = {
                 headers: {
                     "Content-type": "application/json",
-                }
+                },
             }
-            const {data} = await axios.post(
+            const { data } = await axios.post(
                 "/api/user/login",
-                {email,password},
+                { email, password },
                 config
             )
             toast({
@@ -49,7 +49,7 @@ function Login() {
             })
             localStorage.setItem('userInfo', JSON.stringify(data))
             setLoading(false)
-            navigate.push("/chats")
+            navigate("/chats")
         } catch (error) {
             toast({
                 title: "Error Occured",
@@ -69,7 +69,7 @@ function Login() {
                 <Input
                     bg='snow'
                     size="lg"
-                    value={email}
+
                     type="email"
                     placeholder="Enter Your Email Address"
                     value={email}
@@ -82,11 +82,10 @@ function Login() {
                     <Input
                         bg='snow'
                         size="lg"
-                        value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         type={show ? "text" : "password"}
                         placeholder="Enter password"
-                    value={password}
+                        value={password}
 
                     />
                     <InputRightElement width="4.5rem">

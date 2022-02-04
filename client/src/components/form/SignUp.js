@@ -14,6 +14,7 @@ function SignUp() {
     const [loading, setLoading] = useState(false)
     const toast = useToast()
     const navigate = useNavigate();
+
     const handleClick = () => setShow(!show)
 
     const details = (pictures) => {
@@ -38,7 +39,7 @@ function SignUp() {
                 body: data,
             })
                 .then((res) => res.json())
-                .then((data) => {
+                .then(data => {
                     setPicture(data.url.toString())
                     console.log(data.url.toString());
                     setLoading(false)
@@ -88,7 +89,8 @@ function SignUp() {
                     "Content-type": "application/json",
                 }
             }
-            const { data } = await axios.post("/api/user", { name, email, password,picture }, config)
+            const { data } = await axios.post("/api/user", { name, email, password, picture }, config
+            );
             toast({
                 title: "Registration successful!",
                 status: "success",
@@ -98,7 +100,7 @@ function SignUp() {
             })
             localStorage.setItem('userInfo', JSON.stringify(data))
             setLoading(false)
-            navigate.push("/chats")
+            navigate("/chats")
         } catch (error) {
             toast({
                 title: "Error Occured",
@@ -112,19 +114,19 @@ function SignUp() {
         }
     }
     return (<VStack spacing="3px">
-        <FormControl isRequired>
+        <FormControl >
             <FormLabel textAlign='center' >Name<Input variant='filled' bg='snow' size="lg" placeholder='Enter Your Email' onChange={(event) => setName(event.target.value)} /></FormLabel>
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl >
             <FormLabel textAlign='center'>Email Address   <Input variant='filled' bg='snow' size="lg" placeholder='Enter Your Email' onChange={(event) => setEmail(event.target.value)} />
             </FormLabel>
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl >
             <FormLabel textAlign='center'>Password<InputGroup><Input variant='filled' bg='snow' size="lg"
                 type={show ? "text" : "password"}
-                placeholder='Enter Your Password' onChange={(event) => setEmail(event.target.value)} />
+                placeholder='Enter Your Password' onChange={(event) => setPassword(event.target.value)} />
                 <InputRightElement width='4.5rem'>
                     <Button h='1.75rem' size='sm' bgcolor='lightsteelblue' onClick={handleClick}>
                         {show ? 'Hide' : 'Show'}
@@ -134,7 +136,7 @@ function SignUp() {
 
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl >
             <FormLabel textAlign='center'>Confirm Password<InputGroup>
                 <Input type={show ? "text" : "password"} variant='filled' bg='snow' size="lg" placeholder='Confirm Password' onChange={(event) => setConfirmPassword(event.target.value)} />
                 <InputRightElement width='4.5rem'>
