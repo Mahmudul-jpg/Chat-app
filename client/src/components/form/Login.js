@@ -9,9 +9,9 @@ import { useNavigate } from 'react-router-dom'
 
 function Login() {
     const [show, setShow] = useState(false)
+    const handleClick = () => setShow(!show);
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const handleClick = () => setShow(!show);
     const [loading, setLoading] = useState(false)
     const toast = useToast()
     const navigate = useNavigate();
@@ -36,7 +36,7 @@ function Login() {
                 },
             }
             const { data } = await axios.post(
-                "/api/user/login",
+                "api/user/login",
                 { email, password },
                 config
             )
