@@ -4,7 +4,8 @@ import { Box, Text, IconButton } from '@chakra-ui/react'
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import { getSender, getSenderFull } from '../../config/ChatLogics'
 import Profile from './Profile'
-const SingleChat = () => {
+import UpdateGroup from './UpdateGroup'
+const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const { user, selectedChat, setSelectedChat } = ChatState()
     return <>{
         selectedChat ? (<>
@@ -21,8 +22,13 @@ const SingleChat = () => {
                     <Profile user={getSenderFull(user, selectedChat.users)} />
                 </>) : (<>
                     {selectedChat.chatName.toUpperCase()}
+                    <UpdateGroup fetchAgain={fetchAgain}
+                        setFetchAgain={setFetchAgain} />
                 </>)}
             </Text>
+            <Box d='flex' flexDir='column' justifyContent='flex-end' p={3} bg="#87CEEB" w='100%' h='100%' borderRadius='lg' overflowY='hidden'>
+
+            </Box>
         </>) : (<Box d="flex" alignItems="center" justifyContent="center" h="100%">
             <Text fontSize="3xl" pb={3} fontFamily="Work sans">
                 Click on a user for chatting
