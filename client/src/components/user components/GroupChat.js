@@ -7,7 +7,7 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton, useDisclosure, Button, useToast, FormControl,
-    Input, FormHelperText, Box
+    Input, Box
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { ChatState } from '../../context/ChatProvider'
