@@ -1,18 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChatState } from '../../context/ChatProvider'
-import { Box, Text, IconButton, Spinner, FormControl, Input, useToast } from '@chakra-ui/react'
+import { Box, Text, IconButton, Spinner, FormControl, Input, useToast, effect } from '@chakra-ui/react'
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import { getSender, getSenderFull } from '../../config/ChatLogics'
 import Profile from './Profile'
 import UpdateGroup from './UpdateGroup'
 import axios from 'axios'
-
+import ScrollableChat from '../user components/ScrollableChat'
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const [loading, setLoading] = useState(false)
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState()
     const { user, selectedChat, setSelectedChat } = ChatState()
     const toast = useToast()
+    const fetchMessages = async () => {
+        if (!selectedChat) return
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            }
+            setLoading(true)
+            const { data } = await axios.get(`/api/message/${selectedChat._id}`,
+                config
+            )
+            console.log(messages)
+            setMessages(data)
+            setLoading(false)
+        } catch (error) {
+            toast({
+                title: "Error Occured",
+                description: "failed to load the messages",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            })
+        }
+    }
+    useEffect(() => {
+        fetchMessages()
+    }, [selectedChat])
     const sendMessage = async (event) => {
         if (event.key === 'Enter' && newMessage) {
             try {
@@ -74,10 +103,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     h="20"
                     alignSelf="center"
                     margin="auto"
-                />) : (<>
+                />) : (
 
-
-                </>)}
+                    <div >
+                        <ScrollableChat messages={messages} />
+                    </div>
+                )}
                 <FormControl onKeyDown={sendMessage} isRequired mt={3}>
                     <Input placeholder="Enter your message" bg="whitesmoke" p='30px' variant="filled" onChange={typingHandler}
                         value={newMessage}

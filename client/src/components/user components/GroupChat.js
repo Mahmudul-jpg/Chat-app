@@ -22,6 +22,7 @@ const GroupChat = ({ children }) => {
     const toast = useToast()
     const { user, chats, setChats } = ChatState()
     const [selectedUsers, setSelectedUsers] = useState([])
+
     const handleGroup = (userToAdd) => {
         if (selectedUsers.includes(userToAdd)) {
             toast({
