@@ -7,10 +7,14 @@ import Profile from './Profile'
 import UpdateGroup from './UpdateGroup'
 import axios from 'axios'
 import ScrollableChat from '../user components/ScrollableChat'
+import io from "socket.io-client"
+const ENDPOINT = "http://localhost:4000"
+var socket, selectedChatCompare
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const [loading, setLoading] = useState(false)
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState()
+    const [socketConnected, setSocketConnected] = useState(false)
     const { user, selectedChat, setSelectedChat } = ChatState()
     const toast = useToast()
     const fetchMessages = async () => {
@@ -74,6 +78,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         }
 
     }
+    useEffect(() => {
+        socket = io(ENDPOINT)
+        socket.emit("setup", user)
+        socket.on("connection", () => setSocketConnected(true))
+    }, [])
     const typingHandler = (event) => {
         setNewMessage(event.target.value)
     }
